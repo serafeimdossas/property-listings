@@ -4,6 +4,7 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import Autocomplete from "@mui/material/Autocomplete";
 import Button from "@mui/material/Button";
+import { getAreaSuggestions } from "../../services/AreaService";
 import "./Form.css";
 
 const TITLE = {
@@ -22,7 +23,7 @@ const LABELS = {
 const PLACEHOLDERS = {
   TITLE: "Enter property title",
   TYPE: "Select property type",
-  AREA: "Set property geographical area",
+  AREA: "Enter property area (e.g. Nea Smyrni)",
   PRICE: "Set property price",
   DESCRIPTION: "Write a brief description of the property",
 };
@@ -34,15 +35,32 @@ const PROPERTY_TYPES = [
   { label: "Donation", value: "Donation" },
 ];
 
+const COMMON_AREA_SUGGESTIONS = [
+  { areaId: "ChIJ8UNwBh-9oRQR3Y1mdkU1Nic", areaText: "Athens, Ελλάδα" },
+  { areaId: "ChIJ7eAoFPQ4qBQRqXTVuBXnugk", areaText: "Thessaloniki, Ελλάδα" },
+  { areaId: "ChIJLe0kpZk1XhMRoIy54iy9AAQ", areaText: "Patras, Ελλάδα" },
+  { areaId: "ChIJP-Fo0GtYmhQR8La54iy9AAQ", areaText: "Heraklion, Ελλάδα" },
+  { areaId: "ChIJoUddWVyIWBMRMJy54iy9AAQ", areaText: "Larissa, Ελλάδα" },
+];
+
 function Form() {
   const [title, setTitle] = useState("");
   const [type, setType] = useState("Rent");
-  const [area, setArea] = useState({
-    areaId: "",
-    areaText: "",
-  });
+  const [areaText, setAreaText] = useState("");
+  const [areaId, setAreaId] = useState("");
+  const [areaOptions, setAreaOptions] = useState([]);
   const [price, setPrice] = useState(0);
   const [description, setDescription] = useState("");
+
+  const updateSuggestions = async (input) => {
+    const options = await getAreaSuggestions(input);
+    setAreaOptions(
+      options.map((option) => ({
+        areaId: option.placeId,
+        areaText: `${option.mainText}, ${option.secondaryText}`,
+      }))
+    );
+  };
 
   return (
     <div className="hp-form">
@@ -80,17 +98,34 @@ function Form() {
         </div>
         <div className="hp-form-input">
           <p className="hp-form-input-label">{LABELS.AREA}</p>
-          {/* <Autocomplete
-            // disablePortal
-            // options={top100Films}
-            // sx={{ width: 300 }}
-            renderInput={(params) => <TextField {...params} label="Movie" />}
-          /> */}
-          <TextField
+          <Autocomplete
             placeholder={PLACEHOLDERS.AREA}
-            variant="outlined"
+            disablePortal
+            freeSolo
+            options={areaOptions}
+            getOptionLabel={(option) => option.areaText || ""}
+            renderInput={(params) => (
+              <TextField {...params} placeholder={PLACEHOLDERS.AREA} />
+            )}
             fullWidth
             size="small"
+            value={
+              areaOptions.find((option) => option.areaText === areaText) || null
+            }
+            onInputChange={(_event, newInputValue) => {
+              setAreaText(newInputValue);
+              if (newInputValue.length >= 3) {
+                updateSuggestions(newInputValue);
+              } else {
+                setAreaOptions([]);
+              }
+            }}
+            onChange={(_event, newValue) => {
+              if (newValue) {
+                setAreaId(newValue.areaId);
+                setAreaText(newValue.areaText);
+              }
+            }}
           />
         </div>
         <div className="hp-form-input">
