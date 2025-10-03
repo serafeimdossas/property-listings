@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
@@ -52,6 +52,15 @@ function Form() {
   const [areaOptions, setAreaOptions] = useState([]);
   const [price, setPrice] = useState(0);
   const [description, setDescription] = useState("");
+  const [width, setWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => setWidth(window.innerWidth);
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const updateSuggestions = async (input) => {
     const options = await getAreaSuggestions(input);
@@ -85,6 +94,14 @@ function Form() {
     } catch (error) {
       console.error("not saved");
     }
+  };
+
+  const propertiesListLink = () => {
+    return (
+      <div className="form-footer-link">
+        <span>View Properties &rarr;</span>
+      </div>
+    );
   };
 
   return (
@@ -190,6 +207,7 @@ function Form() {
         >
           Submit Property Listing
         </Button>
+        {width > 600 ? null : propertiesListLink()}
       </div>
     </div>
   );

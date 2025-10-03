@@ -6,3 +6,11 @@
   row-gap: 5vh;
   margin-bottom: 5vh;
 }
+
+@media (max-width: 600px) {
+  .App {
+    padding: 0;
+    height: 100vh;
+    margin-bottom: 0;
+  }
+}

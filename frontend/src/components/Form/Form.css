@@ -6,12 +6,30 @@
   padding: 10px 50px 40px 50px;
 }
 
+@media (max-width: 600px) {
+  .hp-form {
+    height: 100vh;
+    width: 85vw;
+    padding-bottom: 0;
+  }
+
+  .hp-form-title {
+    font-size: 1.8rem;
+  }
+}
+
+@media (min-width: 601px) {
+  .hp-form-title {
+    font-size: 2.5rem;
+  }
+}
+
 .hp-form-header {
   margin-bottom: 40px;
 }
 
 .hp-form-title {
-  font-size: 2.5rem;
+  color: #002ead;
   font-weight: 700;
   text-align: center;
   margin-bottom: 0px;
@@ -36,10 +54,21 @@
 }
 
 .hp-form-input-label {
-  font-weight: 400;
+  font-size: 1rem;
+  font-weight: 500;
+  font-style: italic;
   margin-bottom: 10px;
 }
 
-/* .hp-form-input .MuiFormControl-root {
-  width: 100%;
-} */
+.form-footer-link {
+  margin-top: 20px;
+  text-align: center;
+  text-decoration: underline;
+  color: #002ead;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.form-footer-link:hover {
+  cursor: pointer;
+}
