@@ -4,6 +4,11 @@ FROM node:20-alpine AS build
 # Set working direcotry
 WORKDIR /app
 
+ARG VITE_BACKEND_URL
+
+ENV \
+VITE_BACKEND_URL=${VITE_BACKEND_URL} 
+
 # copy the package.json files from local machine to the workdir in container
 COPY package*.json ./
 
