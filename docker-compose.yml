@@ -11,6 +11,21 @@ services:
     ports:
       - 9000:9000
 
+  properties_db:
+    image: mysql:8.0
+    command: ["--default-authentication-plugin=mysql_native_password"]
+    environment:
+      MYSQL_ROOT_PASSWORD: $PROP_DB_ROOT_PASS
+      MYSQL_DATABASE: $PROP_DB_DB
+      MYSQL_USER: $PROP_DB_USER
+      MYSQL_PASSWORD: $PROP_DB_USER_PASS
+    tmpfs:
+      - /var/lib/mysql
+    volumes:
+      - ./backend/db/sql:/docker-entrypoint-initdb.d:ro
+    ports:
+      - 3307:3306
+
   frontend:
     build:
       context: ./frontend/
