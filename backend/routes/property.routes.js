@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const { validatePropertyData } = require("../middleware/validate");
 const { Property } = require("../db/db");
 
 router.get("/", async (_req, res) => {
@@ -22,8 +23,22 @@ router.get("/", async (_req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", validatePropertyData, async (req, res) => {
   try {
+    // get data from validated request body
+    const { title, type, area, area_id, price, description } = req.body;
+
+    // create property object in db
+    await Property.create({
+      title,
+      type,
+      area_id,
+      area,
+      price,
+      description: description || null,
+    });
+
+    // return success response
     return res.status(200).send({
       message: "Property successfully listed",
     });

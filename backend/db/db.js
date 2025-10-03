@@ -21,6 +21,7 @@ const Property = sequelize.define(
       type: DataTypes.ENUM("Rent", "Buy", "Exchange", "Donation"),
       allowNull: false,
     },
+    area_id: { type: DataTypes.STRING(255), allowNull: false },
     area: { type: DataTypes.STRING(255), allowNull: false },
     price: { type: DataTypes.INTEGER, allowNull: false },
     description: { type: DataTypes.TEXT, allowNull: true },
