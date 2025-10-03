@@ -5,6 +5,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Autocomplete from "@mui/material/Autocomplete";
 import Button from "@mui/material/Button";
 import { getAreaSuggestions } from "../../services/AreaService";
+import { listProperty } from "../../services/PropertiesService";
 import "./Form.css";
 
 const TITLE = {
@@ -60,6 +61,30 @@ function Form() {
         areaText: `${option.mainText}, ${option.secondaryText}`,
       }))
     );
+  };
+
+  const submitButtonDisabled = () => {
+    return (
+      title === "" || // title has no value
+      type === "" || // type has no value
+      price < 0 || // price is negative
+      (areaText === "" && areaId === "") // area variables have no info
+    );
+  };
+
+  const submitForm = async () => {
+    try {
+      await listProperty({
+        title,
+        type,
+        area_id: areaId,
+        area: areaText,
+        price: parseInt(price),
+        description,
+      });
+    } catch (error) {
+      console.error("not saved");
+    }
   };
 
   return (
@@ -160,6 +185,8 @@ function Form() {
           fullWidth
           sx={{ textTransform: "none" }}
           size="large"
+          disabled={submitButtonDisabled()}
+          onClick={submitForm}
         >
           Submit Property Listing
         </Button>
