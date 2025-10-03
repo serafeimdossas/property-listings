@@ -3,7 +3,7 @@ const app = express();
 require("dotenv").config();
 
 // define api port
-const PORT = process.env.BACKEND_PORT || 8000;
+const PORT = process.env.BACKEND_PORT || 9000;
 
 // parse JSON
 app.use(express.json());

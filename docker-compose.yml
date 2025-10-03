@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  backend:
+    build:
+      context: ./backend/
+    container_name: properties-backend-service
+    environment:
+      - BACKEND_PORT=$BACKEND_PORT
+    restart: always
+    ports:
+      - 9000:9000
+
+  frontend:
+    build:
+      context: ./frontend/
+      # args:
+      #   - REACT_APP_API_URL_BACKEND=$REACT_APP_API_URL_BACKEND
+    container_name: properties-frontend-service
+    restart: always
+    ports:
+      - 3001:80

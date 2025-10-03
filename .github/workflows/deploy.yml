@@ -46,6 +46,5 @@ jobs:
           port: ${{ secrets.SERVER_SSH_PORT }}
           script: |
             cd /var/www/html/property-listings/
-            docker build -t property-listings .
-            docker rm -f property-listings >/dev/null 2>&1 || true
-            docker run -d -p 3001:80 --name property-listings property-listings
+            sudo docker compose -f docker-compose.yml up -d --build # Build the Docker images and start the containers in detached mode
+            sudo docker system prune -a -f
