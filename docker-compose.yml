@@ -8,6 +8,7 @@ services:
     environment:
       DATABASE_URL: $PROP_DB_URL
       BACKEND_PORT: $BACKEND_PORT
+      AREA_SERVICE_URL: $AREA_SERVICE_URL
     restart: always
     ports:
       - 9000:9000
@@ -25,6 +26,7 @@ services:
       MYSQL_DATABASE: $PROP_DB_DB
       MYSQL_USER: $PROP_DB_USER
       MYSQL_PASSWORD: $PROP_DB_USER_PASS
+    restart: always
     tmpfs:
       - /var/lib/mysql
     volumes:
