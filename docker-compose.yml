@@ -37,8 +37,8 @@ services:
   frontend:
     build:
       context: ./frontend/
-      # args:
-      #   - REACT_APP_API_URL_BACKEND=$REACT_APP_API_URL_BACKEND
+      args:
+        VITE_BACKEND_URL: $VITE_BACKEND_URL
     container_name: properties-frontend-service
     restart: always
     ports:
