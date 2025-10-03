@@ -1,0 +1,45 @@
+.hp-form {
+  min-width: 40vw;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  padding: 10px 50px 40px 50px;
+}
+
+.hp-form-header {
+  margin-bottom: 40px;
+}
+
+.hp-form-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 0px;
+}
+
+.hp-form-subtitle {
+  font-size: 1rem;
+  color: #616f86;
+  text-align: center;
+  font-style: italic;
+  margin-top: 0;
+}
+
+.hp-form-main-body {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 30px;
+}
+
+.hp-form-input {
+  font-size: 1.1rem;
+}
+
+.hp-form-input-label {
+  font-weight: 400;
+  margin-bottom: 10px;
+}
+
+/* .hp-form-input .MuiFormControl-root {
+  width: 100%;
+} */
