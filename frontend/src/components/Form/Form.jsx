@@ -4,6 +4,8 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import Autocomplete from "@mui/material/Autocomplete";
 import Button from "@mui/material/Button";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { getAreaSuggestions } from "../../services/AreaService";
 import { listProperty } from "../../services/PropertiesService";
 import "./Form.css";
@@ -81,9 +83,19 @@ function Form() {
     );
   };
 
+  const clearFormFields = () => {
+    setTitle("");
+    setType("Rent");
+    setAreaText("");
+    setAreaId("");
+    setAreaOptions([]);
+    setPrice(0);
+    setDescription("");
+  };
+
   const submitForm = async () => {
     try {
-      await listProperty({
+      const result = await listProperty({
         title,
         type,
         area_id: areaId,
@@ -91,8 +103,28 @@ function Form() {
         price: parseInt(price),
         description,
       });
+
+      if (result.success) {
+        // clear form
+        clearFormFields();
+        // show success toast
+        toast.success("Poperty successfully listed.");
+        // reload page
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
+      } else {
+        // show error toast
+        toast.error(
+          "Oops, we encountered an error listing your property, try again later."
+        );
+      }
     } catch (error) {
-      console.error("not saved");
+      console.error("Property not listed", error);
+      // show error toast
+      toast.error(
+        "Oops, we encountered an error listing your property, try again later."
+      );
     }
   };
 
@@ -104,112 +136,130 @@ function Form() {
     );
   };
 
+  const toastModal = () => {
+    return (
+      <ToastContainer
+        position="top-right"
+        theme="colored"
+        autoClose={5000}
+        hideProgressBar={false}
+        closeOnClick
+        pauseOnHover
+        draggable
+      />
+    );
+  };
+
   return (
-    <div className="hp-form">
-      <div className="hp-form-header">
-        <p className="hp-form-title">{TITLE.MAIN}</p>
-        <p className="hp-form-subtitle">{TITLE.SUBTITLE}</p>
-      </div>
-      <div className="hp-form-main-body">
-        <div className="hp-form-input">
-          <p className="hp-form-input-label">{LABELS.TITLE}</p>
-          <TextField
-            placeholder={PLACEHOLDERS.TITLE}
-            variant="outlined"
-            fullWidth
-            size="small"
-            value={title}
-            onChange={(event) => setTitle(event.target.value)}
-          />
+    <>
+      <div className="hp-form">
+        <div className="hp-form-header">
+          <p className="hp-form-title">{TITLE.MAIN}</p>
+          <p className="hp-form-subtitle">{TITLE.SUBTITLE}</p>
         </div>
-        <div className="hp-form-input">
-          <p className="hp-form-input-label">{LABELS.TYPE}</p>
-          <Select
-            placeholder={PLACEHOLDERS.TYPE}
-            value={type}
-            onChange={(event) => setType(event.target.value)}
+        <div className="hp-form-main-body">
+          <div className="hp-form-input">
+            <p className="hp-form-input-label">{LABELS.TITLE}</p>
+            <TextField
+              placeholder={PLACEHOLDERS.TITLE}
+              variant="outlined"
+              fullWidth
+              size="small"
+              value={title}
+              onChange={(event) => setTitle(event.target.value)}
+            />
+          </div>
+          <div className="hp-form-input">
+            <p className="hp-form-input-label">{LABELS.TYPE}</p>
+            <Select
+              placeholder={PLACEHOLDERS.TYPE}
+              value={type}
+              onChange={(event) => setType(event.target.value)}
+              fullWidth
+              size="small"
+            >
+              {PROPERTY_TYPES.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </Select>
+          </div>
+          <div className="hp-form-input">
+            <p className="hp-form-input-label">{LABELS.AREA}</p>
+            <Autocomplete
+              placeholder={PLACEHOLDERS.AREA}
+              disablePortal
+              freeSolo
+              options={areaOptions}
+              getOptionLabel={(option) => option.areaText || ""}
+              renderInput={(params) => (
+                <TextField {...params} placeholder={PLACEHOLDERS.AREA} />
+              )}
+              fullWidth
+              size="small"
+              value={
+                areaOptions.find((option) => option.areaText === areaText) ||
+                null
+              }
+              onInputChange={(_event, newInputValue) => {
+                setAreaText(newInputValue);
+                if (newInputValue.length >= 3) {
+                  updateSuggestions(newInputValue);
+                } else {
+                  setAreaOptions([]);
+                }
+              }}
+              onChange={(_event, newValue) => {
+                if (newValue) {
+                  setAreaId(newValue.areaId);
+                  setAreaText(newValue.areaText);
+                }
+              }}
+            />
+          </div>
+          <div className="hp-form-input">
+            <p className="hp-form-input-label">{LABELS.PRICE}</p>
+            <TextField
+              placeholder={PLACEHOLDERS.PRICE}
+              variant="outlined"
+              fullWidth
+              size="small"
+              type="number"
+              value={price}
+              onChange={(event) => setPrice(event.target.value)}
+            />
+          </div>
+          <div className="hp-form-input">
+            <p className="hp-form-input-label">{LABELS.DESCRIPTION}</p>
+            <TextField
+              placeholder={PLACEHOLDERS.DESCRIPTION}
+              variant="outlined"
+              fullWidth
+              size="small"
+              multiline
+              rows={4}
+              value={description}
+              onChange={(event) => setDescription(event.target.value)}
+            />
+          </div>
+        </div>
+        <div className="hp-form-footer">
+          <Button
+            variant="contained"
             fullWidth
-            size="small"
+            sx={{ textTransform: "none" }}
+            size="large"
+            disabled={submitButtonDisabled()}
+            onClick={submitForm}
           >
-            {PROPERTY_TYPES.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </Select>
-        </div>
-        <div className="hp-form-input">
-          <p className="hp-form-input-label">{LABELS.AREA}</p>
-          <Autocomplete
-            placeholder={PLACEHOLDERS.AREA}
-            disablePortal
-            freeSolo
-            options={areaOptions}
-            getOptionLabel={(option) => option.areaText || ""}
-            renderInput={(params) => (
-              <TextField {...params} placeholder={PLACEHOLDERS.AREA} />
-            )}
-            fullWidth
-            size="small"
-            value={
-              areaOptions.find((option) => option.areaText === areaText) || null
-            }
-            onInputChange={(_event, newInputValue) => {
-              setAreaText(newInputValue);
-              if (newInputValue.length >= 3) {
-                updateSuggestions(newInputValue);
-              } else {
-                setAreaOptions([]);
-              }
-            }}
-            onChange={(_event, newValue) => {
-              if (newValue) {
-                setAreaId(newValue.areaId);
-                setAreaText(newValue.areaText);
-              }
-            }}
-          />
-        </div>
-        <div className="hp-form-input">
-          <p className="hp-form-input-label">{LABELS.PRICE}</p>
-          <TextField
-            placeholder={PLACEHOLDERS.PRICE}
-            variant="outlined"
-            fullWidth
-            size="small"
-            type="number"
-            value={price}
-            onChange={(event) => setPrice(event.target.value)}
-          />
-        </div>
-        <div className="hp-form-input">
-          <p className="hp-form-input-label">{LABELS.DESCRIPTION}</p>
-          <TextField
-            placeholder={PLACEHOLDERS.DESCRIPTION}
-            variant="outlined"
-            fullWidth
-            size="small"
-            multiline
-            rows={4}
-            value={description}
-            onChange={(event) => setDescription(event.target.value)}
-          />
+            Submit Property Listing
+          </Button>
+          {width > 600 ? null : propertiesListLink()}
         </div>
       </div>
-      <div className="hp-form-footer">
-        <Button
-          variant="contained"
-          fullWidth
-          sx={{ textTransform: "none" }}
-          size="large"
-          disabled={submitButtonDisabled()}
-          onClick={submitForm}
-        >
-          Submit Property Listing
-        </Button>
-        {width > 600 ? null : propertiesListLink()}
-      </div>
-    </div>
+      {toastModal()}
+    </>
   );
 }
 
