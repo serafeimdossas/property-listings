@@ -24,6 +24,11 @@ const Property = sequelize.define(
     area: { type: DataTypes.STRING(255), allowNull: false },
     price: { type: DataTypes.INTEGER, allowNull: false },
     description: { type: DataTypes.TEXT, allowNull: true },
+    list_date: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW,
+    },
   },
   { tableName: "property" }
 );

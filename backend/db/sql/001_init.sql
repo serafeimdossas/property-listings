@@ -6,5 +6,6 @@ CREATE TABLE IF NOT EXISTS property (
     type ENUM("Rent", "Buy", "Exchange", "Donation") NOT NULL,
     area VARCHAR(255) NOT NULL,
     price INT NOT NULL,
-    description TEXT
+    description TEXT,
+    list_date DATETIME DEFAULT CURRENT_TIMESTAMP
 );
