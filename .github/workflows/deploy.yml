@@ -36,3 +36,16 @@ jobs:
           port: ${{ secrets.SERVER_SSH_PORT }}
           source: "."
           target: "/var/www/html/property-listings/"
+
+      - name: Start Docker containers with Docker Compose
+        uses: appleboy/ssh-action@v0.1.5
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          port: ${{ secrets.SERVER_SSH_PORT }}
+          script: |
+            cd /var/www/html/property-listings/
+            docker build -t property-listings .
+            docker rm -f property-listings >/dev/null 2>&1 || true
+            docker run -d -p 3001:80 --name property-listings property-listings
