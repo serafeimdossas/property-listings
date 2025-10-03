@@ -1,4 +1,6 @@
 -- init data
+SET NAMES utf8mb4;
+SET CHARACTER SET utf8mb4;
 
 INSERT IGNORE INTO property (title, type, area, price, description) VALUES
 ('Cozy Apartment in Downtown', 'Rent', 'Nea Smyrni, Ελλάδα', 1200, 'A cozy 2-bedroom apartment located in the heart of the city.'),
