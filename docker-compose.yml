@@ -6,14 +6,20 @@ services:
       context: ./backend/
     container_name: properties-backend-service
     environment:
-      - BACKEND_PORT=$BACKEND_PORT
+      DATABASE_URL: $PROP_DB_URL
+      BACKEND_PORT: $BACKEND_PORT
     restart: always
     ports:
       - 9000:9000
 
   properties_db:
     image: mysql:8.0
-    command: ["--default-authentication-plugin=mysql_native_password"]
+    command:
+      [
+        "--default-authentication-plugin=mysql_native_password",
+        "--character-set-server=utf8mb4",
+        "--collation-server=utf8mb4_general_ci",
+      ]
     environment:
       MYSQL_ROOT_PASSWORD: $PROP_DB_ROOT_PASS
       MYSQL_DATABASE: $PROP_DB_DB

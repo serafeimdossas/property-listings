@@ -1,19 +1,18 @@
 const express = require("express");
-const app = express();
 require("dotenv").config();
+const propertyRoutes = require("./routes/property.routes");
 
-// define api port
+const app = express();
 const PORT = process.env.BACKEND_PORT || 9000;
 
-// parse JSON
 app.use(express.json());
 
-// test init route
+app.use("/api/v1/properties", propertyRoutes);
+
 app.get("/", (_req, res) => {
-  res.send("Express API init!");
+  return res.status(200).send({ message: "Properties API!" });
 });
 
-// start server
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`API listening on ${PORT}`);
 });
