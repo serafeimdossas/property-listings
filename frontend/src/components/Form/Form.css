@@ -10,7 +10,7 @@
   .hp-form {
     /* height: 100vh; */
     width: 85vw;
-    padding-bottom: 0;
+    /* padding-bottom: 0; */
     box-shadow: none;
   }
 
@@ -94,7 +94,6 @@
 
 .form-footer-link {
   margin-top: 20px;
-  margin-bottom: 50px;
   text-align: center;
   text-decoration: underline;
   color: #002ead;
@@ -104,6 +103,10 @@
 
 .form-footer-link:hover {
   cursor: pointer;
+}
+
+.hp-form-footer {
+  margin-bottom: 30px;
 }
 
 .hp-form-footer button {
