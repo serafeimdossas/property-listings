@@ -21,6 +21,12 @@ const LABELS = {
   TITLE: "Property Title",
   TYPE: "Property Type",
   AREA: "Area",
+  FLOOR_LEVEL: "Floor Level",
+  SQUARE_METERS: "Square Meteres",
+  BEDROOMS: "Number of Bedrooms",
+  BATHROOMS: "Number of Bathrooms",
+  YEAR: "Year Built",
+  FURNISHED: "Furnished",
   PRICE: "Price",
   DESCRIPTION: "Description",
 };
@@ -29,6 +35,12 @@ const PLACEHOLDERS = {
   TITLE: "Enter property title",
   TYPE: "Select property type",
   AREA: "Enter property area (e.g. Nea Smyrni)",
+  FLOOR_LEVEL: "Enter property floor level",
+  SQUARE_METERS: "Enter property's size in square meters",
+  BEDROOMS: "Enter number of bedrooms",
+  BATHROOMS: "Enter number of bathrooms",
+  YEAR: "Enter building's construction year",
+  FURNISHED: "Choose furnished status",
   PRICE: "Set property price",
   DESCRIPTION: "Write a brief description of the property",
 };
@@ -54,6 +66,12 @@ function Form() {
   const [areaText, setAreaText] = useState("");
   const [areaId, setAreaId] = useState("");
   const [areaOptions, setAreaOptions] = useState([]);
+  const [floorLevel, setFloorLevel] = useState(0);
+  const [squareMeters, setSquareMeters] = useState(0);
+  const [bedrooms, setBedrooms] = useState(0);
+  const [bathrooms, setBathrooms] = useState(0);
+  const [year, setYear] = useState(0);
+  const [furnished, setFurnished] = useState(false);
   const [price, setPrice] = useState(0);
   const [description, setDescription] = useState("");
   const [width, setWidth] = useState(window.innerWidth);
@@ -132,6 +150,12 @@ function Form() {
     setAreaText("");
     setAreaId("");
     setAreaOptions([]);
+    setFloorLevel(0);
+    setSquareMeters(0);
+    setBedrooms(0);
+    setBathrooms(0);
+    setYear(0);
+    setFurnished(false);
     setPrice(0);
     setDescription("");
   };
@@ -145,6 +169,12 @@ function Form() {
         area: areaText,
         price: parseInt(price),
         description,
+        floor_level: floorLevel >= -1 ? floorLevel : null, // handle for basements too
+        square_meters: squareMeters > 0 ? squareMeters : null,
+        bedrooms: bedrooms >= 0 ? bedrooms : null,
+        bathrooms: bathrooms >= 0 ? bathrooms : null,
+        year: year > 1900 ? year : null,
+        furnished,
       });
 
       if (result.success) {
@@ -271,6 +301,109 @@ function Form() {
               }}
             />
           </div>
+          <div className="hp-form-input-double">
+            <div className="hp-form-input">
+              <p className="hp-form-input-label">{LABELS.FLOOR_LEVEL}</p>
+              <TextField
+                placeholder={PLACEHOLDERS.FLOOR_LEVEL}
+                variant="outlined"
+                fullWidth
+                size="small"
+                type="number"
+                value={floorLevel}
+                onChange={(event) => {
+                  if (event.target.value >= -1) {
+                    setFloorLevel(event.target.value);
+                  }
+                }}
+              />
+            </div>
+            <div className="hp-form-input">
+              <p className="hp-form-input-label">{LABELS.SQUARE_METERS}</p>
+              <TextField
+                placeholder={PLACEHOLDERS.SQUARE_METERS}
+                variant="outlined"
+                fullWidth
+                size="small"
+                type="number"
+                value={squareMeters}
+                onChange={(event) => {
+                  if (event.target.value > 0) {
+                    setSquareMeters(event.target.value);
+                  }
+                }}
+              />
+            </div>
+          </div>
+          <div className="hp-form-input-double">
+            <div className="hp-form-input">
+              <p className="hp-form-input-label">{LABELS.BEDROOMS}</p>
+              <TextField
+                placeholder={PLACEHOLDERS.BEDROOMS}
+                variant="outlined"
+                fullWidth
+                size="small"
+                type="number"
+                value={bedrooms}
+                onChange={(event) => {
+                  if (event.target.value >= 0) {
+                    setBedrooms(event.target.value);
+                  }
+                }}
+              />
+            </div>
+            <div className="hp-form-input">
+              <p className="hp-form-input-label">{LABELS.BATHROOMS}</p>
+              <TextField
+                placeholder={PLACEHOLDERS.BATHROOMS}
+                variant="outlined"
+                fullWidth
+                size="small"
+                type="number"
+                value={bathrooms}
+                onChange={(event) => {
+                  if (event.target.value >= 0) {
+                    setBathrooms(event.target.value);
+                  }
+                }}
+              />
+            </div>
+          </div>
+          <div className="hp-form-input-double">
+            <div className="hp-form-input">
+              <p className="hp-form-input-label">{LABELS.YEAR}</p>
+              <TextField
+                placeholder={PLACEHOLDERS.YEAR}
+                variant="outlined"
+                fullWidth
+                size="small"
+                type="number"
+                value={year}
+                onChange={(event) => {
+                  if (event.target.value >= 0) {
+                    setYear(event.target.value);
+                  }
+                }}
+              />
+            </div>
+            <div className="hp-form-input">
+              <p className="hp-form-input-label">{LABELS.FURNISHED}</p>
+              <Select
+                placeholder={PLACEHOLDERS.FURNISHED}
+                value={furnished}
+                onChange={(event) => setFurnished(event.target.value)}
+                fullWidth
+                size="small"
+              >
+                <MenuItem key={1} value={false}>
+                  Not furnished
+                </MenuItem>
+                <MenuItem key={1} value={true}>
+                  Furnished
+                </MenuItem>
+              </Select>
+            </div>
+          </div>
           <div className="hp-form-input">
             <p className="hp-form-input-label">{LABELS.PRICE}</p>
             <TextField
@@ -280,7 +413,11 @@ function Form() {
               size="small"
               type="number"
               value={price}
-              onChange={(event) => setPrice(event.target.value)}
+              onChange={(event) => {
+                if (event.target.value >= 0) {
+                  setPrice(event.target.value);
+                }
+              }}
             />
           </div>
           <div className="hp-form-input">

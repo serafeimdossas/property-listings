@@ -72,6 +72,26 @@
   margin-bottom: 10px;
 }
 
+@media (max-width: 450px) {
+  .hp-form-input-double {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 451px) {
+  .hp-form-input-double {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    column-gap: 20px;
+  }
+
+  .hp-form-input-double .hp-form-input {
+    width: 50%;
+  }
+}
+
 .form-footer-link {
   margin-top: 20px;
   text-align: center;
