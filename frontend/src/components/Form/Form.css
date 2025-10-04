@@ -11,10 +11,18 @@
     height: 100vh;
     width: 85vw;
     padding-bottom: 0;
+    box-shadow: none;
   }
 
   .hp-form-title {
     font-size: 1.8rem;
+  }
+
+  .hp-form-header-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
   }
 }
 

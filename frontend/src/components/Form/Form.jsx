@@ -4,6 +4,7 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import Autocomplete from "@mui/material/Autocomplete";
 import Button from "@mui/material/Button";
+import HomeIcon from "@mui/icons-material/Home";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { getAreaSuggestions } from "../../services/AreaService";
@@ -154,6 +155,14 @@ function Form() {
     <>
       <div className="hp-form">
         <div className="hp-form-header">
+          {width > 600 ? null : (
+            <div className="hp-form-header-icon">
+              <HomeIcon
+                style={{ color: "#002ead", fontSize: "3rem" }}
+                fontSize="large"
+              />
+            </div>
+          )}
           <p className="hp-form-title">{TITLE.MAIN}</p>
           <p className="hp-form-subtitle">{TITLE.SUBTITLE}</p>
         </div>
