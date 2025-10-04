@@ -1,7 +1,7 @@
 .property-card {
   background-color: #fff;
   border: 1px solid #dcdcdc;
-  border-radius: 10px;
+  border-radius: 0px;
 }
 
 @media (max-width: 600px) {

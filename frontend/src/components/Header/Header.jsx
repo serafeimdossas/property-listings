@@ -8,16 +8,11 @@ function Header() {
       <div className="hp-header-div">
         <Link to="/">
           <HomeIcon
-            style={{ color: "#002ead", fontSize: "3rem" }}
+            style={{ color: "#616f86", fontSize: "3rem" }}
             fontSize="large"
           />
         </Link>
-        {/* <h3>Properties App</h3> */}
       </div>
-      {/* <div className="hp-header-div">
-        <h3>View Properties</h3>
-        <EastIcon style={{ color: "#002ead" }} fontSize="large" />
-      </div> */}
     </header>
   );
 }

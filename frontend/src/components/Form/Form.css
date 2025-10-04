@@ -1,7 +1,7 @@
 .hp-form {
   min-width: 40vw;
   background-color: #fff;
-  border-radius: 10px;
+  border-radius: 0px;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
   padding: 10px 50px 40px 50px;
 }
@@ -61,6 +61,10 @@
   font-size: 1.1rem;
 }
 
+.hp-form-input .MuiInputBase-root {
+  border-radius: 0px !important;
+}
+
 .hp-form-input-label {
   font-size: 1rem;
   font-weight: 500;
@@ -79,4 +83,8 @@
 
 .form-footer-link:hover {
   cursor: pointer;
+}
+
+.hp-form-footer button {
+  border-radius: 0px;
 }
