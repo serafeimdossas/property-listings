@@ -52,14 +52,6 @@ const PROPERTY_TYPES = [
   { label: "Donation", value: "Donation" },
 ];
 
-const COMMON_AREA_SUGGESTIONS = [
-  { areaId: "ChIJ8UNwBh-9oRQR3Y1mdkU1Nic", areaText: "Athens, Ελλάδα" },
-  { areaId: "ChIJ7eAoFPQ4qBQRqXTVuBXnugk", areaText: "Thessaloniki, Ελλάδα" },
-  { areaId: "ChIJLe0kpZk1XhMRoIy54iy9AAQ", areaText: "Patras, Ελλάδα" },
-  { areaId: "ChIJP-Fo0GtYmhQR8La54iy9AAQ", areaText: "Heraklion, Ελλάδα" },
-  { areaId: "ChIJoUddWVyIWBMRMJy54iy9AAQ", areaText: "Larissa, Ελλάδα" },
-];
-
 function Form() {
   const [title, setTitle] = useState("");
   const [type, setType] = useState("Rent");
@@ -184,8 +176,11 @@ function Form() {
         toast.success("Poperty successfully listed.");
         // reload page
         setTimeout(() => {
-          window.location.reload();
-        }, 2000);
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          });
+        }, 500);
       } else {
         // show error toast
         toast.error(
@@ -333,7 +328,7 @@ function Form() {
                 type="number"
                 value={squareMeters}
                 onChange={(event) => {
-                  if (event.target.value > 0) {
+                  if (event.target.value >= 0) {
                     setSquareMeters(event.target.value);
                   }
                 }}
@@ -450,7 +445,6 @@ function Form() {
           >
             Submit Property Listing
           </Button>
-          {/* {width > 600 ? null : propertiesListLink()} */}
           {propertiesListLink()}
         </div>
       </div>
