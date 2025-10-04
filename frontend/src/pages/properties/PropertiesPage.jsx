@@ -66,6 +66,7 @@ function PropertiesPage() {
     return (
       <Select
         displayEmpty
+        fullWidth={width > 600 ? false : true}
         value={sorting}
         size="small"
         onChange={(event) => setSorting(event.target.value)}
@@ -87,6 +88,7 @@ function PropertiesPage() {
     return (
       <Select
         displayEmpty
+        fullWidth={width > 600 ? false : true}
         value={filtering}
         onChange={(event) => setFiltering(event.target.value)}
       >
@@ -147,6 +149,7 @@ function PropertiesPage() {
           <div className="properties-page-title">
             <p>Properties listings</p>
           </div>
+          {dropdownsSection()}
           <div className="properties-page-body">{propertiesList()}</div>
         </>
       )}
