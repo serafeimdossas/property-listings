@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import TextField from "@mui/material/TextField";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
@@ -58,6 +58,8 @@ function Form() {
   const [description, setDescription] = useState("");
   const [width, setWidth] = useState(window.innerWidth);
 
+  const cacheRef = useRef(new Map());
+
   useEffect(() => {
     const handleResize = () => setWidth(window.innerWidth);
 
@@ -66,9 +68,48 @@ function Form() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const setCachedAreaSuggestion = (query, data) => {
+    // save input suggestions, with expiry after 5 mins
+    cacheRef.current.set(query, { data, expiry: Date.now() + 5 * 60 * 1000 });
+  };
+
+  const getCachedAreaSuggestion = (query) => {
+    // get data for user's input from cache object
+    const entry = cacheRef.current.get(query);
+
+    // if not found return null
+    if (!entry) return null;
+
+    // cache data too old, clean cache to not use much memory
+    if (Date.now() > entry.expiry) {
+      cacheRef.current.delete(query);
+      return null;
+    }
+
+    // return found data
+    return entry.data;
+  };
+
   const updateSuggestions = async (input) => {
+    // check cache
+    const cached = getCachedAreaSuggestion(input);
+    if (cached) {
+      setAreaOptions(cached);
+      return;
+    }
+
+    // not cached, call API
     const options = await getAreaSuggestions(input);
     setAreaOptions(
+      options.map((option) => ({
+        areaId: option.placeId,
+        areaText: `${option.mainText}, ${option.secondaryText}`,
+      }))
+    );
+
+    // Save to cache and return
+    setCachedAreaSuggestion(
+      input,
       options.map((option) => ({
         areaId: option.placeId,
         areaText: `${option.mainText}, ${option.secondaryText}`,

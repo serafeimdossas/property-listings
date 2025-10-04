@@ -5,6 +5,10 @@ import "./PropertyCard.css";
 function PropertyCard(props) {
   const { title, area, type, description, price } = props.property;
 
+  const formatPrice = (value) => {
+    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  };
+
   return (
     <div className="property-card">
       <div className="property-card-img">
@@ -19,7 +23,7 @@ function PropertyCard(props) {
           <span>{area}</span>
         </p>
         <p className="property-card-description">{description}</p>
-        <p className="property-card-price">{`${price} €`}</p>
+        <p className="property-card-price">{`${formatPrice(price)} €`}</p>
       </div>
     </div>
   );

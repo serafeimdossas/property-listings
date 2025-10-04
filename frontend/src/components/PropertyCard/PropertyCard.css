@@ -14,12 +14,12 @@
   }
 
   .property-card-title {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     font-weight: 500;
   }
 
   .property-card-type {
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: 400;
   }
 
@@ -37,12 +37,12 @@
   }
 
   .property-card-title {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     font-weight: 500;
   }
 
   .property-card-type {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     font-weight: 400;
   }
 
@@ -74,9 +74,11 @@
   flex-direction: row;
   column-gap: 5px;
   align-items: center;
+  color: #616f86;
+  font-style: italic;
 }
 
 .property-card-price {
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   font-weight: 500;
 }
