@@ -60,7 +60,7 @@
 .property-card-details {
   display: flex;
   flex-direction: column;
-  row-gap: 15px;
+  row-gap: 5px;
   align-items: flex-start;
 }
 
@@ -81,4 +81,17 @@
 .property-card-price {
   font-size: 1.3rem;
   font-weight: 500;
+}
+
+.property-card-attributes {
+  display: flex;
+  flex-direction: row;
+  column-gap: 15px;
+}
+
+.property-attribute {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  column-gap: 5px;
 }
