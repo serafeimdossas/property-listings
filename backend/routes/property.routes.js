@@ -44,7 +44,7 @@ router.post("/", validatePropertyData, async (req, res) => {
       bedrooms,
       bathrooms,
       year_built,
-      is_furnished,
+      furnished,
     } = req.body;
 
     // create property object in db
@@ -60,7 +60,7 @@ router.post("/", validatePropertyData, async (req, res) => {
       bedrooms: bedrooms ?? null,
       bathrooms: bathrooms ?? null,
       year_built: year_built ?? null,
-      is_furnished: typeof is_furnished === "boolean" ? is_furnished : false,
+      furnished: typeof furnished === "boolean" ? furnished : false,
     });
 
     // return success response

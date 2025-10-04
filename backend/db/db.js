@@ -50,7 +50,7 @@ const Property = sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: true,
     },
-    is_furnished: {
+    furnished: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: false,
