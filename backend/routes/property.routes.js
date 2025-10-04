@@ -1,10 +1,18 @@
 const express = require("express");
 const router = express.Router();
 const { validatePropertyData } = require("../middleware/validate");
+const { PROPERTY_TYPES } = require("../utils/config");
 const { Property } = require("../db/db");
 
-router.get("/", async (_req, res) => {
+router.get("/", async (req, res) => {
   try {
+    const { sorting, filtering } = req.query;
+
+    const validSortingParam =
+      sorting && ["asc", "desc"].includes(sorting.toLowerCase());
+    const validFilteringParam =
+      filtering && Object.values(PROPERTY_TYPES).includes(filtering);
+
     const properties = await Property.findAll({
       attributes: [
         "title",
@@ -20,7 +28,10 @@ router.get("/", async (_req, res) => {
         "year_built",
         "furnished",
       ],
-      order: [["list_date", "DESC"]],
+      where: validFilteringParam ? { type: filtering } : undefined,
+      order: validSortingParam
+        ? [["price", sorting.toUpperCase()]]
+        : [["list_date", "DESC"]],
     });
     return res.status(200).send(properties);
   } catch (error) {
