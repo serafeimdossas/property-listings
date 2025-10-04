@@ -8,5 +8,11 @@ CREATE TABLE IF NOT EXISTS property (
     area VARCHAR(255) NOT NULL,
     price INT NOT NULL,
     description TEXT,
-    list_date DATETIME DEFAULT CURRENT_TIMESTAMP
+    list_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    floor_level INT,
+    square_meters INT,
+    bedrooms INT,
+    bathrooms INT,
+    year_built INT,
+    furnished BOOLEAN DEFAULT FALSE
 );
