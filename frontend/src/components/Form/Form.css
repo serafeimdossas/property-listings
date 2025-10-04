@@ -29,6 +29,7 @@
 @media (min-width: 601px) {
   .hp-form-title {
     font-size: 2.5rem;
+    margin-top: 10px;
   }
 }
 
@@ -90,6 +91,15 @@
   .hp-form-input-double .hp-form-input {
     width: 50%;
   }
+}
+
+.form-header-link {
+  margin-top: 10px;
+  text-align: center;
+  text-decoration: underline;
+  color: #002ead;
+  font-weight: 500;
+  font-style: italic;
 }
 
 .form-footer-link {

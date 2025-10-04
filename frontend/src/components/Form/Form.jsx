@@ -237,6 +237,11 @@ function Form() {
               />
             </div>
           )}
+          <div className="form-header-link">
+            <Link to="/properties">
+              <span>View Properties &rarr;</span>
+            </Link>
+          </div>
           <p className="hp-form-title">{TITLE.MAIN}</p>
           <p className="hp-form-subtitle">{TITLE.SUBTITLE}</p>
         </div>
