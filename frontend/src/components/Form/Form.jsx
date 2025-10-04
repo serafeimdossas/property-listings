@@ -173,7 +173,7 @@ function Form() {
         square_meters: squareMeters > 0 ? squareMeters : null,
         bedrooms: bedrooms >= 0 ? bedrooms : null,
         bathrooms: bathrooms >= 0 ? bathrooms : null,
-        year: year > 1900 ? year : null,
+        year_built: year > 1900 ? year : null,
         furnished,
       });
 
