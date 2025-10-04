@@ -24,3 +24,8 @@
     text-align: center;
   }
 }
+
+.properties-page-header-icon {
+  display: flex;
+  justify-content: center;
+}

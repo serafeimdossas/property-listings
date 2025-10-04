@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { getProperties } from "../../services/PropertiesService";
 import Header from "../../components/Header/Header";
 import PropertyCard from "../../components/PropertyCard/PropertyCard";
+import HomeIcon from "@mui/icons-material/Home";
 import "./PropertiesPage.css";
 
 function PropertiesPage() {
@@ -34,13 +35,30 @@ function PropertiesPage() {
 
   return (
     <div className="properties-page">
-      <>
-        <Header />
-        <div className="properties-page-title">
-          <p>Properties listings</p>
-        </div>
-        <div className="properties-page-body">{propertiesList()}</div>
-      </>
+      {width > 600 ? (
+        <>
+          <Header />
+          <div className="properties-page-title">
+            <p>Properties listings</p>
+          </div>
+          <div className="properties-page-body">{propertiesList()}</div>
+        </>
+      ) : (
+        <>
+          {
+            <div className="properties-page-header-icon">
+              <HomeIcon
+                style={{ color: "#002ead", fontSize: "3rem" }}
+                fontSize="large"
+              />
+            </div>
+          }
+          <div className="properties-page-title">
+            <p>Properties listings</p>
+          </div>
+          <div className="properties-page-body">{propertiesList()}</div>
+        </>
+      )}
     </div>
   );
 }
