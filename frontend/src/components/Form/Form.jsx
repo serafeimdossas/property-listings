@@ -7,6 +7,7 @@ import Button from "@mui/material/Button";
 import HomeIcon from "@mui/icons-material/Home";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Link } from "react-router-dom";
 import { getAreaSuggestions } from "../../services/AreaService";
 import { listProperty } from "../../services/PropertiesService";
 import "./Form.css";
@@ -132,7 +133,9 @@ function Form() {
   const propertiesListLink = () => {
     return (
       <div className="form-footer-link">
-        <span>View Properties &rarr;</span>
+        <Link to="/properties">
+          <span>View Properties &rarr;</span>
+        </Link>
       </div>
     );
   };
@@ -264,7 +267,8 @@ function Form() {
           >
             Submit Property Listing
           </Button>
-          {width > 600 ? null : propertiesListLink()}
+          {/* {width > 600 ? null : propertiesListLink()} */}
+          {propertiesListLink()}
         </div>
       </div>
       {toastModal()}
