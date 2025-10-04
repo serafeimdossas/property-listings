@@ -29,3 +29,16 @@
   display: flex;
   justify-content: center;
 }
+
+.dropdowns-section {
+  margin-left: 20px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  column-gap: 30px;
+}
+
+.dropdowns-section .MuiInputBase-root {
+  border-radius: 0px !important;
+  height: 40px;
+}

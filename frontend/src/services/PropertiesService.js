@@ -37,4 +37,25 @@ const getProperties = async () => {
   }
 };
 
-export { listProperty, getProperties };
+const getFilteredSortedProperties = async (params) => {
+  try {
+    const { data } = await axios.get(
+      `${import.meta.env.VITE_BACKEND_URL}properties`,
+      {
+        params,
+      }
+    );
+    return {
+      success: true,
+      data: data,
+    };
+  } catch (error) {
+    console.error("Could not fetch data:", error);
+    return {
+      success: false,
+      error: error.response?.data || error.message,
+    };
+  }
+};
+
+export { listProperty, getProperties, getFilteredSortedProperties };

@@ -403,7 +403,7 @@ function Form() {
                 <MenuItem key={1} value={false}>
                   Not furnished
                 </MenuItem>
-                <MenuItem key={1} value={true}>
+                <MenuItem key={2} value={true}>
                   Furnished
                 </MenuItem>
               </Select>
