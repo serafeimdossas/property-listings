@@ -14,7 +14,7 @@ INSERT IGNORE INTO property (
   bedrooms,
   bathrooms,
   year_built,
-  is_furnished
+  furnished
 ) VALUES
 ('Cozy Apartment in Downtown', 'Rent', 'ChIJvXOxxEy8oRQRl3mevrHaz1U', 'Nea Smyrni, Ελλάδα', 1200, 'A cozy 2-bedroom apartment located in the heart of the city.', 2, 75, 2, 1, 2015, TRUE),
 ('Spacious Family Home', 'Buy', 'ChIJD94HcElHqBQRv7k3I9nyBGs', 'Πανόραμα, Ελλάδα', 350000, 'A spacious 4-bedroom family home with a large backyard.', 1, 240, 4, 2, 2010, FALSE),
