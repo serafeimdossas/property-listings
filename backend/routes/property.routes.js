@@ -13,6 +13,12 @@ router.get("/", async (_req, res) => {
         "price",
         "description",
         "list_date",
+        "floor_level",
+        "square_meters",
+        "bedrooms",
+        "bathrooms",
+        "year_built",
+        "furnished",
       ],
       order: [["list_date", "DESC"]],
     });
@@ -26,7 +32,20 @@ router.get("/", async (_req, res) => {
 router.post("/", validatePropertyData, async (req, res) => {
   try {
     // get data from validated request body
-    const { title, type, area, area_id, price, description } = req.body;
+    const {
+      title,
+      type,
+      area,
+      area_id,
+      price,
+      description,
+      floor_level,
+      square_meters,
+      bedrooms,
+      bathrooms,
+      year_built,
+      is_furnished,
+    } = req.body;
 
     // create property object in db
     await Property.create({
@@ -35,7 +54,13 @@ router.post("/", validatePropertyData, async (req, res) => {
       area_id,
       area,
       price,
-      description: description || null,
+      description: description ?? null,
+      floor_level: floor_level ?? null,
+      square_meters: square_meters ?? null,
+      bedrooms: bedrooms ?? null,
+      bathrooms: bathrooms ?? null,
+      year_built: year_built ?? null,
+      is_furnished: typeof is_furnished === "boolean" ? is_furnished : false,
     });
 
     // return success response

@@ -30,6 +30,31 @@ const Property = sequelize.define(
       allowNull: false,
       defaultValue: DataTypes.NOW,
     },
+    floor_level: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    square_meters: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    bedrooms: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    bathrooms: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    year_built: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    is_furnished: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
   },
   { tableName: "property" }
 );
