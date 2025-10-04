@@ -10,7 +10,7 @@
 @media (max-width: 600px) {
   .App {
     padding: 0;
-    height: 100vh;
+    /* height: 100vh; */
     margin-bottom: 0;
   }
 }

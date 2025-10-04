@@ -8,7 +8,7 @@
 
 @media (max-width: 600px) {
   .hp-form {
-    height: 100vh;
+    /* height: 100vh; */
     width: 85vw;
     padding-bottom: 0;
     box-shadow: none;
@@ -94,6 +94,7 @@
 
 .form-footer-link {
   margin-top: 20px;
+  margin-bottom: 50px;
   text-align: center;
   text-decoration: underline;
   color: #002ead;
