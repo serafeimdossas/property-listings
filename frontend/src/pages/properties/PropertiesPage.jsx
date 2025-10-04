@@ -105,6 +105,9 @@ function PropertiesPage() {
         <MenuItem key={4} value={"Donation"}>
           Donation
         </MenuItem>
+        <MenuItem key={5} value={""}>
+          Show All
+        </MenuItem>
       </Select>
     );
   };
