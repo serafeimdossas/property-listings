@@ -3,6 +3,7 @@ import { getProperties } from "../../services/PropertiesService";
 import Header from "../../components/Header/Header";
 import PropertyCard from "../../components/PropertyCard/PropertyCard";
 import HomeIcon from "@mui/icons-material/Home";
+import { Link } from "react-router-dom";
 import "./PropertiesPage.css";
 
 function PropertiesPage() {
@@ -47,10 +48,12 @@ function PropertiesPage() {
         <>
           {
             <div className="properties-page-header-icon">
-              <HomeIcon
-                style={{ color: "#002ead", fontSize: "3rem" }}
-                fontSize="large"
-              />
+              <Link to="/">
+                <HomeIcon
+                  style={{ color: "#002ead", fontSize: "3rem" }}
+                  fontSize="large"
+                />
+              </Link>
             </div>
           }
           <div className="properties-page-title">
